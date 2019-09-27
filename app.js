@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
+const uuidv4 = require('uuid/v4');
 
 const app = express();
 
@@ -13,7 +14,7 @@ const fileStorage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, `${new Date().toISOString()}-${file.originalname}`);
+    cb(null, `${uuidv4()}-${file.originalname}`);
   }
 });
 
@@ -45,10 +46,8 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb://localhost:27017/node-complete-restapi')
+  .connect('mongodb://localhost:27017/qzct')
   .then(result => {
     app.listen(8080);
   })
   .catch(err => console.log(err));
-
-test;
